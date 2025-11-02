@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: chat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: chatapp-backend
+          image: preetkakdiya/chatapp-backend:latest
+          ports:
+            - containerPort: 5001
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: JWT_SECRET
+              value: "957d3b10c93a4739"
+            - name: MONGODB_URI
+              value: "mongodb://mongoadmin:mongoadmin@mongodb:27017/admin?authSource=admin"
+
+            - name: PORT
+              value: "5001"
